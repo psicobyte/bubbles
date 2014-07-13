@@ -79,4 +79,14 @@ class Circle():
         # Habrá que hacer algo para asignar color más adelante
         self.Color = "#ffffff"
 
+    def Draw(self,draw):
+
+        inicioX = self.CoorX - self.Radius
+        inicioY = self.CoorY - self.Radius
+        finX = self.CoorX + self.Radius
+        finY = self.CoorY + self.Radius
+
+        draw.ellipse([(inicioX, inicioY), (finX, finY)], outline= "#000000", fill= self.Color)
+
+
 
