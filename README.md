@@ -5,6 +5,16 @@ Otro pequeño experimento de arte algorítmico a partir de secuencias numéricas
 
 Script en python que genera imágenes a partir de secuencias numéricas.
 
+##Librerías:
+
+bubbles.py usa las sigueintes liberías:
+
+* sys
+* os
+* math
+* Image
+* ImageDraw
+
 ##Uso:
 
 bubbles.py ARCHIVO\_NUMEROS IMAGEN\_PNG
