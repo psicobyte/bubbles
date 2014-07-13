@@ -19,7 +19,6 @@
 
 import sys, os, math, Image, ImageDraw
 
-
 # Dimensiones para la imagen
 
 WIDTH= 2000
@@ -32,4 +31,52 @@ img = Image.new("RGB", (WIDTH, HEIGHT), "#000000")
 draw = ImageDraw.Draw(img)
 
 img.save(image_file, "PNG")
+
+
+class Circle():
+    '''
+        Crea cada uno de las "burbujas" en función de los dígitos que se le suministran
+
+        "angle" es el ángulo en el que está rotada respeto a la burbuja padre.
+        "color" es el color que tendrá
+        "sons" es el número de hijos (0 = 10)
+    '''
+
+    def __init__(self, angle, color, sons, parent= None):
+
+        self.Parent = parent
+
+        self.Sons = sons
+
+        if self.Sons == 0: self.Sons = 10
+
+        #Si es el primer círculo...
+        if  self.Parent is None:
+
+            self.CoorX = WIDTH / 2
+            self.CoorY = HEIGHT / 2
+
+            self.Radius =  HEIGHT / 4
+
+            self.Generation = 0
+
+        else:
+
+            # Los círculos pares se dibujan fuera del padre, los impares dentro
+            if angle % 2 == 0:
+                multiplicador = 0.6666
+
+            else:
+                multiplicador = 1.3333
+
+            self.CoorX = self.Parent.CoorX + (math.cos(math.pi * angle / 5) * self.Parent.Radius * multiplicador)
+            self.CoorY = self.Parent.CoorY + (math.sin(math.pi * angle / 5) * self.Parent.Radius * multiplicador)
+
+            self.Radius =  self.Parent.Radius / 3
+
+            self.Generation = self.Parent.Generation + 1
+
+        # Habrá que hacer algo para asignar color más adelante
+        self.Color = "#ffffff"
+
 
