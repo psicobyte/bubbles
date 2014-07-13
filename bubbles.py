@@ -24,13 +24,10 @@ import sys, os, math, Image, ImageDraw
 WIDTH= 2000
 HEIGHT= 2000
 
+numbers_file= "demos/pi.txt"
+
 image_file = "dibujo.png"
 
-img = Image.new("RGB", (WIDTH, HEIGHT), "#000000")
-
-draw = ImageDraw.Draw(img)
-
-img.save(image_file, "PNG")
 
 
 class Circle():
@@ -105,5 +102,43 @@ def descendence(father):
         i = i + 1
 
 
+img = Image.new("RGB", (WIDTH, HEIGHT), "#000000")
 
 
+
+fichero = open(numbers_file)
+cadena= fichero.read()
+fichero.close()
+
+array_digits = list(cadena)
+
+
+array_circles= []
+
+angle= int(array_digits.pop(0))
+color= int(array_digits.pop(0))
+sons= int(array_digits.pop(0))
+
+array_circles.append(Circle(angle,color,sons))
+
+
+Iterations = 5
+
+i = 0
+
+while i < Iterations:
+    for elemento in array_circles:
+        if elemento.Generation == i:
+            descendence(elemento)
+    i = i + 1
+
+
+
+draw = ImageDraw.Draw(img)
+
+for elemento in array_circles:
+
+    elemento.Draw(draw)
+
+
+img.save(image_file, "PNG")
