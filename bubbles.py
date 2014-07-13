@@ -73,8 +73,7 @@ class Circle():
 
             self.Generation = self.Parent.Generation + 1
 
-        # Habrá que hacer algo para asignar color más adelante
-        self.Color = "#ffffff"
+        self.Color = set_color(color,self.Generation)
 
     def Draw(self,draw):
 
@@ -100,6 +99,16 @@ def descendence(father):
         array_circles.append(Circle(angle,color,sons,father))
 
         i = i + 1
+
+def set_color(num,gen):
+
+    hue= num * 36
+    saturation= 25 + (gen * 10)
+    lightness = 50 + (gen * 5)
+    color = "hsl(" + str(hue) + ", " + str(saturation) + "%, " + str(lightness) + "%)"
+
+    return color
+
 
 
 img = Image.new("RGB", (WIDTH, HEIGHT), "#000000")
