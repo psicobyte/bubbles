@@ -89,4 +89,21 @@ class Circle():
         draw.ellipse([(inicioX, inicioY), (finX, finY)], outline= "#000000", fill= self.Color)
 
 
+def descendence(father):
+    global array_digits, array_circles
+
+    i = 0
+
+    while i < father.Sons:
+
+        angle= int(array_digits.pop(0))
+        color= int(array_digits.pop(0))
+        sons= int(array_digits.pop(0))
+
+        array_circles.append(Circle(angle,color,sons,father))
+
+        i = i + 1
+
+
+
 
