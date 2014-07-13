@@ -24,11 +24,6 @@ import sys, os, math, Image, ImageDraw
 WIDTH= 2000
 HEIGHT= 2000
 
-numbers_file= "demos/pi.txt"
-
-image_file = "dibujo.png"
-
-
 
 class Circle():
     '''
@@ -100,6 +95,7 @@ def descendence(father):
 
         i = i + 1
 
+
 def set_color(num,gen):
 
     hue= num * 36
@@ -110,44 +106,56 @@ def set_color(num,gen):
     return color
 
 
+def main():
+    global array_digits, array_circles
 
-img = Image.new("RGB", (WIDTH, HEIGHT), "#000000")
+    if len(sys.argv) > 2:
+
+        numbers_file= os.path.abspath(sys.argv[1])
+        image_file= os.path.abspath(sys.argv[2])
+
+        try:
+            fichero = open(numbers_file)
+        except IOError:
+            print "No se ha encontrado el archivo de dígitos en " +  numbers_file   
+            sys.exit()
+
+        cadena= fichero.read()
+        fichero.close()
+
+        array_digits = list(cadena)
+
+        array_circles= []
+
+        angle= int(array_digits.pop(0))
+        color= int(array_digits.pop(0))
+        sons= int(array_digits.pop(0))
+
+        array_circles.append(Circle(angle,color,sons))
+
+        iterations = 5
+
+        i = 0
+
+        while i < iterations:
+            for elemento in array_circles:
+                if elemento.Generation == i:
+                    descendence(elemento)
+            i = i + 1
+
+        img = Image.new("RGB", (WIDTH, HEIGHT), "#000000")
+
+        draw = ImageDraw.Draw(img)
+
+        for elemento in array_circles:
+            elemento.Draw(draw)
+
+        img.save(image_file, "PNG")
+
+    else:
+        print "Modo de uso: " + __file__ + " archivo_numeros imagen_resultante"
+        print "Ejemplo:     " + __file__ + " digitsofpi.txt picture.png"
 
 
+main()
 
-fichero = open(numbers_file)
-cadena= fichero.read()
-fichero.close()
-
-array_digits = list(cadena)
-
-
-array_circles= []
-
-angle= int(array_digits.pop(0))
-color= int(array_digits.pop(0))
-sons= int(array_digits.pop(0))
-
-array_circles.append(Circle(angle,color,sons))
-
-
-Iterations = 5
-
-i = 0
-
-while i < Iterations:
-    for elemento in array_circles:
-        if elemento.Generation == i:
-            descendence(elemento)
-    i = i + 1
-
-
-
-draw = ImageDraw.Draw(img)
-
-for elemento in array_circles:
-
-    elemento.Draw(draw)
-
-
-img.save(image_file, "PNG")
