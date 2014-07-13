@@ -27,6 +27,6 @@ bubbles.py demo/pi.txt pi.png
 
 Algunos ejemplos, explicaciones y nás información en:
 
-[http://www.psicobyte.com/articulo/tension_superficial]
+http://www.psicobyte.com/articulo/tension_superficial
 
 
